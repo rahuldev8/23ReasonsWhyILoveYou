@@ -25,7 +25,13 @@ const memories = [
 ];
 //
 // photos/1.jpg ... photos/23.jpg
-const photos = Array.from({ length: 24 }, (_, i) => `photos/${i + 1}.webp`);
+const TOTAL_CARDS = 24;
+const FINAL_CARD = TOTAL_CARDS - 1;
+
+const photos = Array.from(
+  { length: TOTAL_CARDS },
+  (_, i) => `photos/${i + 1}.webp`
+);
 
 const cover = document.getElementById("cover");
 const wall = document.getElementById("wall");
@@ -43,7 +49,7 @@ const bgMusic = document.getElementById("bgMusic");
 const opened = new Set();
 
 function updateProgress() {
-  progressChip.textContent = `Opened ${opened.size} / 24`;
+  progressChip.textContent = `Opened ${opened.size} / ${TOTAL_CARDS}`;
 }
 
 function makePolaroidCard(index, isFinal = false) {
@@ -66,7 +72,15 @@ function makePolaroidCard(index, isFinal = false) {
 
   const photo = document.createElement("div");
   photo.className = "photo";
-  photo.style.backgroundImage = `url('${photos[index]}')`;
+
+  const img = document.createElement("img");
+  img.src = photos[index];
+  img.alt = item?.reason || "";
+  img.fetchPriority = "high";
+  img.loading = "eager";
+  img.decoding = "async";
+
+  photo.appendChild(img);
 
 const caption = document.createElement("p");
 caption.className = "caption";
@@ -121,12 +135,36 @@ if (isFinal) {
   return card;
 }
 
+function preloadImages() {
+  photos.forEach(src => {
+    const img = new Image();
+
+    img.src = src;
+    img.loading = "eager";
+    img.decoding = "async";
+
+    if (img.decode) {
+      img.decode().catch(() => {});
+    }
+  });
+}
+
 function buildWall() {
-  grid.innerHTML = "";
+  
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < TOTAL_CARDS; i++) {
+      fragment.appendChild(
+          makePolaroidCard(i, i === FINAL_CARD)
+      );
+  }
+
+  grid.appendChild(fragment);
+
   opened.clear();
 
-  for (let i = 0; i < 24; i++) {
-    const isFinal = i === 23;
+  for (let i = 0; i < TOTAL_CARDS; i++) {
+    const isFinal = i === FINAL_CARD;
     grid.appendChild(makePolaroidCard(i, isFinal));
   }
 
@@ -188,6 +226,7 @@ musicBtn.addEventListener("click", async () => {
 });
 
 window.addEventListener("load", () => {
+  preloadImages();
   buildWall();
   tryAutoplayMusic();
 });

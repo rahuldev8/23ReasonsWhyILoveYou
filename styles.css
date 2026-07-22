@@ -10,7 +10,7 @@
   --white: #ffffff;
 
   --glass: rgba(248, 243, 233, 0.1);
-  --shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  --shadow: 0 4px 12px rgba(0,0,0,.22);
   --soft: 0 6px 14px rgba(91, 42, 134, 0.25);
   --speed: 220ms;
 }
@@ -147,9 +147,14 @@ body {
   position: relative;
   width: 100%;
   min-height: 230px;
+
   transform-style: preserve-3d;
   transition: transform 520ms cubic-bezier(.2,.8,.2,1);
+
+  transform: translateZ(0);
+  will-change: transform;
 }
+
 .polaroid.open .flip {
   transform: rotateY(180deg);
 }
@@ -157,11 +162,16 @@ body {
 .face {
   position: absolute;
   inset: 0;
+
   backface-visibility: hidden;
+
   border-radius: 14px;
   overflow: hidden;
+
   box-shadow: var(--shadow);
   border: 1px solid rgba(212, 163, 115, 0.34);
+
+  contain: paint;
 }
 
 .front {
@@ -172,20 +182,48 @@ body {
   grid-template-rows: 1fr auto;
 }
 .photo {
+  position: relative;
+  min-height: 165px;
   border-radius: 10px;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  min-height: 165px;
-  position: relative;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+
+  border-radius: inherit;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .photo::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 10px;
-  background: linear-gradient(to top, rgba(0,0,0,0.2), transparent 50%);
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+      to top,
+      rgba(0,0,0,.18),
+      transparent 55%
+  );
+
+  pointer-events: none;
 }
 .caption {
   margin-top: 0.45rem;
