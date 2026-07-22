@@ -163,10 +163,10 @@ function buildWall() {
 
   opened.clear();
 
-  for (let i = 0; i < TOTAL_CARDS; i++) {
-    const isFinal = i === FINAL_CARD;
-    grid.appendChild(makePolaroidCard(i, isFinal));
-  }
+  // for (let i = 0; i < TOTAL_CARDS; i++) {
+  //   const isFinal = i === FINAL_CARD;
+  //   grid.appendChild(makePolaroidCard(i, isFinal));
+  // }
 
   updateProgress();
 }
