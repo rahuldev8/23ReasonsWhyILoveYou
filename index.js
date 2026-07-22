@@ -23,7 +23,7 @@ const memories = [
   { reason: "You are my forever love.", memory: "Every day confirms it even more." },
   { reason: "Because loving you is the easiest thing I’ve ever done.", memory: "And I’ll keep choosing you, always." }
 ];
-
+//
 // photos/1.jpg ... photos/23.jpg
 const photos = Array.from({ length: 23 }, (_, i) => `photos/${i + 1}.jpg`);
 
