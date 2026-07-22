@@ -1,12 +1,12 @@
 const memories = [
-  { reason: "You make every ordinary day feel magical.", memory: "Even simple moments with you become unforgettable." },
-  { reason: "Your smile is my favorite sunrise.", memory: "It brightens my world instantly." },
-  { reason: "You understand me without words.", memory: "One look from you says everything." },
-  { reason: "You make me laugh from my heart.", memory: "My happiest laughs are always with you." },
-  { reason: "Your kindness is beautiful.", memory: "You care deeply, and I admire that every day." },
-  { reason: "You are my comfort place.", memory: "With you, I always feel safe and calm." },
-  { reason: "You believe in me.", memory: "You lift me up whenever I doubt myself." },
-  { reason: "You are beautiful inside and out.", memory: "Your heart is even prettier than your smile." },
+  { reason: "Your Eyes", memory: "Your eyes were the first chapter of the love story I never knew I was waiting for ❤️" },
+  { reason: "You were my college crush.", memory: "Before you became my love, you were the person my heart kept searching for in every corner of our college." },
+  { reason: "You're the most beautiful woman I've ever seen.", memory: "No matter how many faces the world has shown me, yours is the one my heart chose without a second thought." },
+  { reason: "You have the most beautiful heart.", memory: "The way you cared for strangers in Chennai showed me that compassion is simply who you are." },
+  { reason: "You understand me without a single word.", memory: "Every time you say, 'Nee epdi irupa-nu enakku theriyatha?', I realize my silence speaks fluently only to your heart." },
+  { reason: "You are home to me.", memory: "No matter where I am, the moment I'm with you, everything feels like I've finally arrived." },
+  { reason: "You are my lucky charm.", memory: "The day my lost earrings turned up right after I called you was just one more reminder that luck seems you to me." },
+  { reason: "I never get tired of talking to you.", memory: "No matter how many times we talk, I never run out of things to say or reasons to listen." },
   { reason: "You make little things special.", memory: "Late-night talks and random walks mean everything." },
   { reason: "You are my best friend.", memory: "I can tell you anything and feel understood." },
   { reason: "You inspire me to be better.", memory: "Loving you makes me grow every day." },
@@ -85,7 +85,6 @@ function makePolaroidCard(index, isFinal = false) {
     `;
   } else {
     back.innerHTML = `
-      <h3>Reason ${index + 1}</h3>
       <p class="reason">${item.reason}</p>
       <p class="memory">${item.memory}</p>
     `;
