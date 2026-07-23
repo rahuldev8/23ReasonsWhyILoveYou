@@ -74,13 +74,19 @@ function makePolaroidCard(index, isFinal = false) {
   photo.className = "photo";
 
   const img = document.createElement("img");
+
   img.src = photos[index];
   img.alt = item?.reason || "";
-  img.fetchPriority = "high";
-  img.loading = "eager";
+
+  img.width = 600;
+  img.height = 800;
+
+  img.loading = index < 6 ? "eager" : "lazy";
+  img.fetchPriority = index < 6 ? "high" : "low";
   img.decoding = "async";
 
   photo.appendChild(img);
+  img.decode?.().catch(() => {});
 
 const caption = document.createElement("p");
 caption.className = "caption";
@@ -135,40 +141,34 @@ if (isFinal) {
   return card;
 }
 
-function preloadImages() {
-  photos.forEach(src => {
-    const img = new Image();
-
-    img.src = src;
-    img.loading = "eager";
-    img.decoding = "async";
-
-    if (img.decode) {
-      img.decode().catch(() => {});
-    }
-  });
-}
-
 function buildWall() {
-  
-  const fragment = document.createDocumentFragment();
-
-  for (let i = 0; i < TOTAL_CARDS; i++) {
-      fragment.appendChild(
-          makePolaroidCard(i, i === FINAL_CARD)
-      );
-  }
-
-  grid.appendChild(fragment);
-
   opened.clear();
 
-  // for (let i = 0; i < TOTAL_CARDS; i++) {
-  //   const isFinal = i === FINAL_CARD;
-  //   grid.appendChild(makePolaroidCard(i, isFinal));
-  // }
+  let index = 0;
 
-  updateProgress();
+  function buildChunk() {
+    const fragment = document.createDocumentFragment();
+
+    for (
+      let i = 0;
+      i < 4 && index < TOTAL_CARDS;
+      i++, index++
+    ) {
+      fragment.appendChild(
+        makePolaroidCard(index, index === FINAL_CARD)
+      );
+    }
+
+    grid.appendChild(fragment);
+
+    if (index < TOTAL_CARDS) {
+      requestAnimationFrame(buildChunk);
+    } else {
+      updateProgress();
+    }
+  }
+
+  buildChunk();
 }
 
 function enterFullscreen() {
@@ -226,7 +226,19 @@ musicBtn.addEventListener("click", async () => {
 });
 
 window.addEventListener("load", () => {
-  preloadImages();
-  buildWall();
-  tryAutoplayMusic();
+
+  if ("requestIdleCallback" in window) {
+
+    requestIdleCallback(() => {
+      buildWall();
+      tryAutoplayMusic();
+    });
+
+  } else {
+
+    buildWall();
+    tryAutoplayMusic();
+
+  }
+
 });

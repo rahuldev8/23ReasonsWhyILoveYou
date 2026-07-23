@@ -10,7 +10,7 @@
   --white: #ffffff;
 
   --glass: rgba(248, 243, 233, 0.1);
-  --shadow: 0 4px 12px rgba(0,0,0,.22);
+  --shadow: 0 4px 12px rgba(0,0,0,.17);
   --soft: 0 6px 14px rgba(91, 42, 134, 0.25);
   --speed: 220ms;
 }
@@ -133,6 +133,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.85rem;
+  isolation:isolate;
 }
 
 .polaroid {
@@ -141,6 +142,10 @@ body {
   perspective: 900px;
   cursor: pointer;
   min-height: 230px;
+
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 230px;
 }
 
 .flip {
@@ -149,10 +154,10 @@ body {
   min-height: 230px;
 
   transform-style: preserve-3d;
-  transition: transform 520ms cubic-bezier(.2,.8,.2,1);
+  transition: transform .45s cubic-bezier(.2,.8,.2,1);
 
-  transform: translateZ(0);
   will-change: transform;
+  transform: translate3d(0,0,0);
 }
 
 .polaroid.open .flip {
@@ -171,7 +176,7 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid rgba(212, 163, 115, 0.34);
 
-  contain: paint;
+  contain: layout paint style;
 }
 
 .front {
@@ -181,13 +186,17 @@ body {
   display: grid;
   grid-template-rows: 1fr auto;
 }
+
 .photo {
   position: relative;
   min-height: 165px;
+
   border-radius: 10px;
   overflow: hidden;
 
-  transform: translateZ(0);
+  contain: paint;
+
+  transform: translate3d(0,0,0);
   backface-visibility: hidden;
 }
 
@@ -203,11 +212,15 @@ body {
 
   border-radius: inherit;
 
-  transform: translateZ(0);
+  transform: translate3d(0,0,0);
+
   backface-visibility: hidden;
+
+  image-rendering: auto;
 
   user-select: none;
   -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .photo::after {
@@ -394,4 +407,16 @@ footer {
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+@media (max-width:620px){
+
+    .flip{
+        transition-duration:.32s;
+    }
+
+    .photo::after{
+        display:none;
+    }
+
 }
