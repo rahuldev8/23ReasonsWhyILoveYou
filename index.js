@@ -248,7 +248,24 @@ function makePolaroidCard(index) {
    Wall rendering
 ========================= */
 
-function buildWall() {
+async function enterFullscreen() {
+    const el = document.documentElement;
+
+    try {
+        if (el.requestFullscreen) {
+            await el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+            el.webkitRequestFullscreen(); // Safari
+        } else if (el.msRequestFullscreen) {
+            el.msRequestFullscreen(); // IE
+        }
+    } catch (err) {
+        console.log("Fullscreen not supported");
+    }
+}
+
+async function buildWall() {
+  await enterFullscreen();
   if (wallBuilt) return;
 
   wallBuilt = true;
@@ -378,7 +395,7 @@ async function playMusic() {
 
     musicBtn.textContent = "🎵 Music playing";
     musicBtn.disabled = true;
-    musicBtn.style.opacity = "0.85";
+    musicBtn.style.opacity = "0.4";
   } catch {
     musicBtn.textContent = "Tap again to play 🎵";
   }
