@@ -129,6 +129,7 @@ const closeLetterBtn = document.getElementById("closeLetterBtn");
 
 const musicBtn = document.getElementById("musicBtn");
 const bgMusic = document.getElementById("bgMusic");
+const heartAnimationElement = document.getElementById("heartAnimation");
 
 /* =========================
    State
@@ -335,7 +336,10 @@ function handleCardClick(event) {
 
 function openWall() {
   buildWall();
-
+  musicBtn.style.display = "block";
+  if (heartAnimationElement) {
+    heartAnimationElement.style.display = "none";
+  }
   cover.classList.add("cover-exit");
 
   window.setTimeout(() => {
@@ -395,7 +399,32 @@ async function playMusic() {
 
     musicBtn.textContent = "🎵 Music playing";
     musicBtn.disabled = true;
-    musicBtn.style.opacity = "0.4";
+    musicBtn.classList.add("hide");
+    // heart 
+    const heart = document.getElementById("heartContainer");
+    heart.style.display = "flex";
+
+    setTimeout(()=>{
+      requestAnimationFrame(() => {
+        heart.classList.add("hideHeart");
+      });
+    },2000);
+    
+    heart.addEventListener(
+      "transitionend",
+      () => {
+        heart.style.display = "none";
+        heart.classList.remove("hideHeart"); // reset for next time
+      },
+      { once: true }
+    );
+    musicBtn.addEventListener(
+      "transitionend",
+      () => {
+        musicBtn.style.display = "none";
+      },
+      { once: true }
+    );
   } catch {
     musicBtn.textContent = "Tap again to play 🎵";
   }
