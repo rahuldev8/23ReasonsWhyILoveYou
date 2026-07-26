@@ -425,6 +425,75 @@ button {
   cursor: pointer;
 }
 
+/* ===================
+   love animation
+====================== */
+#heartAnimation {
+  display: none;
+}
+#heartContainer {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 3s ease;
+}
+
+#heartContainer.hideHeart {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.heart {
+  width: 100px;
+  height: 100px;
+  background: #a30606;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: heartbeat 1s infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: #a30606;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -57px;
+  left: 0;
+}
+
+.heart::after {
+  left: 57px;
+  top: 0;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: rotate(-45deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(-45deg) scale(1.25);
+  }
+
+  45% {
+    transform: rotate(-45deg) scale(1.5);
+  }
+
+  100% {
+    transform: rotate(-45deg) scale(1);
+  }
+}
+
+
 /* =========================
    Footer and music
 ========================= */
@@ -437,6 +506,7 @@ footer {
 }
 
 .music-btn {
+  display: none;
   position: fixed;
   right: 12px;
   bottom: 12px;
@@ -452,6 +522,16 @@ footer {
 
   font-weight: 600;
   cursor: pointer;
+
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 3s ease, transform 3s ease;
+}
+
+.music-btn.hide {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
 }
 
 /* =========================
@@ -527,6 +607,14 @@ footer {
 
   .back {
     padding: 0.75rem 0.65rem;
+  }
+
+  #heartAnimation {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
