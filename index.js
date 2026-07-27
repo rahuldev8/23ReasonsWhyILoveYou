@@ -442,3 +442,10 @@ letterOverlay.addEventListener("click", handleOverlayClick);
 document.addEventListener("keydown", handleEscapeKey);
 
 musicBtn.addEventListener("click", playMusic);
+
+const privateText = document.getElementById("privateCollectionText");
+
+privateText.addEventListener("click", () => {
+  privateText.classList.add("tamil");
+  privateText.textContent = "நல்லம்மாள்💗அங்கப்பன்";
+});
