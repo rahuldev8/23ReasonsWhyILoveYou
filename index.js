@@ -29,7 +29,7 @@ const memories = [
   },
   {
     reason: "You are my lucky charm.",
-    memory: "The day my lost earrings turned up right after I called you was just one more reminder that luck seems you to me."
+    memory: "The day I lost my studs turned up right after I called you was just one more reminder that luck seems you to me."
   },
   {
     reason: "I never get tired of talking to you 💗",
@@ -49,7 +49,7 @@ const memories = [
   },
   {
     reason: "I love your love language.",
-    memory: "In every bike ride, every saree you wear, every meal we cook together, and every little gift we exchange, you make ordinary moments feel like forever."
+    memory: "You love riding on my bike, visiting temples with me, receiving malli poo from me, and enjoying the meals I cook. You always choose my love and efforts over anything expensive."
   },
   {
     reason: "I love your loyalty 💗",
@@ -88,12 +88,12 @@ const memories = [
     memory: "The moment your hands find my waist, every road feels a little safer and every ride feels a little more like home."
   },
   {
-    reason: "I love how effortlessly you make me feel loved.",
-    memory: "In our childish voices and in your quiet \"I'll come to Chennai\", I find a love that never hesitates, never pretends, and always chooses me."
+    reason: "I love how we talk in our childish voices.",
+    memory: "With you, I never have to let go of my inner child. Our silly little voices remind me that love is also about feeling safe enough to be playful."
   },
   {
-    reason: "I love the way you respect your parents.",
-    memory: "The love, patience, and respect you show your parents tell me everything I need to know about the kind of person you are."
+    reason: "I love how you never hesitate to say, 'Na kelambi varava, Chennai Ku?'",
+    memory: "Whenever I feel low or end up crying, your first instinct is to ask, 'Na kelambi varava, Chennai Ku?' Knowing you're always ready to be with me means more than words ever could."
   }
 ];
 
